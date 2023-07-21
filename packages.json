@@ -1,0 +1,38 @@
+{
+    "name": "@ahmerhh/WebGraphicLibrary-program",
+    "version": "1.0.4",
+    "description": "WebWebGraphicLibrary program wrapper.",
+    "main": "dist/index.js",
+    "scripts": {
+      "test": "browserify test/index.js -t babelify | browser-run | tap-spec",
+      "build": "browserify src/index.js -t babelify -s @ahmerhh/WebGraphicLibrary-program > dist/index.js",
+      "prepublish": "npm run build"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ahmerhh/WebGraphicLibrary-program.git"
+    },
+    "keywords": [
+      "WebGraphicLibrary",
+      "WebGL",
+      "program"
+    ],
+    "author": "ahmerhh <ahmerhh@protonmail.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/ahmerhh/WebGraphicLibrary-program/issues"
+    },
+    "homepage": "https://github.com/ahmerhh/WebGraphicLibrary-program#readme",
+    "dependencies": {
+      "@ahmerhh/WebGraphicLibrary-context": "^1.0.2",
+      "@ahmerhh/WebGraphicLibrary-shader": "^1.0.1"
+    },
+    "devDependencies": {
+      "babel-preset-es2015": "^6.3.13",
+      "babelify": "^7.2.0",
+      "browser-run": "^3.0.8",
+      "browserify": "^13.0.0",
+      "tap-spec": "^4.1.1",
+      "tape": "^4.4.0"
+    }
+  }

@@ -75,3 +75,84 @@ Test('Program class', t => {
 
   t.onFinish(window.close.bind(window));
 });
+
+// Program.js
+class Program {
+    constructor(gl, vertexShaderSource, fragmentShaderSource) {
+      this.gl = gl;
+      this.program = null;
+  
+      this.init(vertexShaderSource, fragmentShaderSource);
+    }
+  
+    init(vertexShaderSource, fragmentShaderSource) {
+      const gl = this.gl;
+      const vertexShader = this.createShader(gl.VERTEX_SHADER, vertexShaderSource);
+      const fragmentShader = this.createShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+  
+      this.program = this.createProgram(vertexShader, fragmentShader);
+    }
+  
+    createShader(type, source) {
+      const gl = this.gl;
+      const shader = gl.createShader(type);
+  
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+  
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        throw new Error('An error occurred compiling the shader: ' + gl.getShaderInfoLog(shader));
+      }
+  
+      return shader;
+    }
+  
+    createProgram(vertexShader, fragmentShader) {
+      const gl = this.gl;
+      const program = gl.createProgram();
+  
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+  
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        throw new Error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(program));
+      }
+  
+      return program;
+    }
+  
+    bind() {
+      const gl = this.gl;
+      gl.useProgram(this.program);
+    }
+  
+    addAttribute(name, size, type) {
+      const gl = this.gl;
+      const attributeLocation = gl.getAttribLocation(this.program, name);
+  
+      if (attributeLocation >= 0) {
+        gl.vertexAttribPointer(attributeLocation, size, type, false, 0, 0);
+        gl.enableVertexAttribArray(attributeLocation);
+      }
+    }
+  
+    addUniform(name, type) {
+      const gl = this.gl;
+      const uniformLocation = gl.getUniformLocation(this.program, name);
+  
+      if (uniformLocation !== null) {
+        // Example: gl.uniform4f(uniformLocation, 1.0, 0.0, 0.0, 1.0);
+        // You can set uniform values as needed based on the type.
+      }
+    }
+  
+    dispose() {
+      const gl = this.gl;
+      gl.deleteProgram(this.program);
+      this.program = null;
+    }
+  }
+  
+  export default Program;
+  
