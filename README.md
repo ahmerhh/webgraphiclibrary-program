@@ -5,7 +5,7 @@ WebGL program wrapper.
 ## Installation
 
 ```sh
-$ npm install --save @ahmerhh/WebGraphicLibrary-program
+$ npm install --save @ahmerhh/webgraphiclibrary-program
 ```
 
 ## Usage
